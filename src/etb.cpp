@@ -12,7 +12,7 @@ ETB::ETB( long int _uid, CP* _cps){
 
 ETB::~ETB( void )
 {
-    cout << "ETB Destruido" << endl;
+    return;
 }
 
 int ETB::attBattToCP( Battery* _battery, int idx_cp )
@@ -24,7 +24,7 @@ int ETB::attBattToCP( Battery* _battery, int idx_cp )
 
 int ETB::dttBattToCP( int idx_cp )
 {
-    this->cps[idx_cp].attatchBattery(NULL);
+    this->cps[idx_cp].detatchBattery();
     return 0;
 }
 

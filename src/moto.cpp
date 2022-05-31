@@ -21,7 +21,7 @@ Moto::Moto( string _plate, float _speed, Battery* _battery)
 
 Moto::~Moto( void )
 {
-    cout << "Moto Destruida!" << endl;
+    return;
 }
 
 
@@ -59,13 +59,20 @@ int Moto::setPlate( string _plate )
 
 int Moto::setSpeed( float _speed )
 {
-    if( _speed > MAX_SPEED )
+    if( this->battery->getSoc() > 0)
     {
-        _speed = MAX_SPEED;
+        if( _speed > MAX_SPEED )
+        {
+            _speed = MAX_SPEED;
+        }
+        else if ( _speed < 0 )
+        {
+            _speed = 0;
+        }
     }
-    else if ( _speed < 0 )
+    else
     {
-        _speed = 0;
+        return 1;
     }
     
     this->speed = _speed;

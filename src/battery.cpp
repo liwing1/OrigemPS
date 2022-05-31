@@ -14,7 +14,7 @@ Battery::Battery( long long int _uid, float _soc , Host* _host) : host(_host)
 
 Battery::~Battery( void )
 {
-    cout << "Bateria destruida!" << endl;
+    return;
 }
 
 int Battery::setUid( long long int _uid )
@@ -26,6 +26,14 @@ int Battery::setUid( long long int _uid )
 
 int Battery::setSoc( float _soc )
 {
+    if( _soc < 0 )
+    {
+        _soc = 0;
+    }
+    else if( _soc > 100 )
+    {
+        _soc = 100;
+    }
     this->soc = _soc;
     return 0;
 }
