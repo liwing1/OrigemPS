@@ -28,8 +28,7 @@ class Moto{
         int attBatt( Battery* _battery );
         int dttBatt( void );
 
-        int triggerAccelerator( void );
-        int triggerBreaker( void );
-        int releaseBreaker( void );
+        int toggleAccelerator( void );
+        int toggleBreaker( void );
 
 };
