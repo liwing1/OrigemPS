@@ -21,8 +21,8 @@ class Moto : public Host{
     private:
         string plate;
         float speed;
-        stateMoto_t state;
         Battery* battery;
+        stateMoto_t state;
 
     public:
         Moto( string _plate, float _speed, Battery* _battery);
@@ -39,7 +39,12 @@ class Moto : public Host{
 
         long long int getBattUid( void );
         float getBattSoc( void );
-        int getBattHost( void );
+
+        int setPlate( string _plate );
+        int setSpeed( float _speed );
+        string getPlate( void );
+        float getSpeed( void );
+        Battery* getBattery( void );
 
 };
 
