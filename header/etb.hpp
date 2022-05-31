@@ -7,10 +7,10 @@
 class ETB{
     private:
         long int uid;
-        CP cps[6];
+        CP* cps;
 
     public:
-        ETB( long int _uid, CP _cps[6] );
+        ETB( long int _uid );
         ~ETB( void );
 
         int attBattToCP( Battery* _battery, int idx_cp );
