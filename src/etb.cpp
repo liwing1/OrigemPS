@@ -31,7 +31,7 @@ int ETB::dttBattToCP( int idx_cp )
 int ETB::getAmountOfBattTotal( void )
 {
     int amountOfBatteries = 0;
-    for( int i = 0; i < 6; i++)
+    for( int i = 0; i < 8; i++)
     {
         if( this->cps[i].getState() )
         {

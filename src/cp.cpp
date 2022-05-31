@@ -13,10 +13,12 @@ void CP::attatchBattery( Battery* _battery )
 {
     this->battery = _battery;
     this->battery->setHost(this);
+    this->setState(CP_ATTATCHED);
 }
 
 void CP::detatchBattery( void )
 {
+    this->setState(CP_EMPTY);
     this->battery->setHost(NULL);
     this->battery = NULL;
 }

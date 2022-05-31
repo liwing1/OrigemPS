@@ -9,6 +9,7 @@ Battery::Battery( long long int _uid, float _soc , Host* _host) : host(_host)
 {
     uid = _uid;
     soc = _soc;
+    host = _host;
 }
 
 Battery::~Battery( void )
