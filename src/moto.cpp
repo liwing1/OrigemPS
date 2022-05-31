@@ -99,9 +99,9 @@ float Moto::getSpeed( void )
     return this->speed;
 }
 
-int Moto::setPlate( string _plate )
+int Moto::getPlate( void )
 {
-    this->plate = _plate;
+    return this->plate;
 }
 
 Battery* Moto::getBattery( void )
