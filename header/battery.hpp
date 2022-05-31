@@ -7,7 +7,8 @@
 
 #include "moto.hpp"
 #include "cp.hpp"
-#include "host.hpp"
+
+class Host;
 
 class Battery{
     private:

@@ -14,9 +14,9 @@ int main() {
 
     Moto moto = Moto("ASD", 60, NULL);
 
-    moto.attBatt(&battery);
+    moto.attatchBattery(&battery);
 
-    cout << moto.getBattUid();
+    cout << moto.getBattUid() << endl;
 
     if(battery.getHost())
     {

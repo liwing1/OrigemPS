@@ -50,18 +50,17 @@ int Moto::turnOff( void )
 }
 
 
-int Moto::attBatt( Battery* _battery )
+void Moto::attatchBattery( Battery* _battery )
 {
     this->battery = _battery;
     this->battery->setHost(this);
-    return 0;
 }
 
 
-int Moto::dttBatt( void )
+void Moto::detatchBattery( void )
 {
     this->battery = NULL;
-    return 0;
+    this->battery->setHost(NULL);
 }
 
 

@@ -30,8 +30,8 @@ class Moto : public Host{
         int turnOn( void );
         int turnOff( void );
 
-        int attBatt( Battery* _battery );
-        int dttBatt( void );
+        void attatchBattery( Battery* _battery );
+        void detatchBattery( void );
 
         int toggleAccelerator( void );
         int toggleBreaker( void );

@@ -30,3 +30,9 @@ ETB::~ETB( void )
 {
     cout << "ETB Destruido" << endl;
 }
+
+int ETB::attBattToCP( Battery* _battery, int idx_cp )
+{
+    this->cps[idx_cp].attatchBattery(_battery);
+    return 0;
+}

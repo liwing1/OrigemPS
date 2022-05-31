@@ -7,12 +7,14 @@
 class Battery;
 
 class CP : public Host{
-    Battery* battery;
     int state;
 
     public:
     CP( int _state );
     ~CP( void );
+
+    void attatchBattery( Battery* _battery );
+    void detatchBattery( void );
 };
 
 #endif
