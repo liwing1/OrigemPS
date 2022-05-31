@@ -59,23 +59,27 @@ int Moto::setPlate( string _plate )
 
 int Moto::setSpeed( float _speed )
 {
-    if( this->battery->getSoc() > 0)
+    if( _speed > MAX_SPEED )
     {
-        if( _speed > MAX_SPEED )
+        _speed = MAX_SPEED;
+    }
+    else if ( _speed < 0 )
+    {
+        _speed = 0;
+    }
+
+    if( _speed > this->speed )  // Velocidade so aumenta se tiver bateria
+    {
+        if( this->battery->getSoc() > 0)
         {
-            _speed = MAX_SPEED;
-        }
-        else if ( _speed < 0 )
-        {
-            _speed = 0;
+            this->speed = _speed;
         }
     }
     else
     {
-        return 1;
+        this->speed = _speed;
     }
     
-    this->speed = _speed;
     return 0;
 }
 

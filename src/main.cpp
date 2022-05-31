@@ -273,11 +273,15 @@ void print_log( Moto* p_moto, ETB* p_etb )
     printf("Motorcycle battery: %05.2f\n", p_moto->getBattSoc());
     cout << endl;
 
-    printf("%03ld", p_etb->getUid());
-    printf("CP 1: [UID %04lld| SoC %05.2f | charging : %s]\n",
-        p_etb->getBattUidOfCP(1),
-        p_etb->getBattSocOfCP(1),
-        p_etb->getBattStateofCP(1) == CP_CHARGING ? "YES" : "NO" );
+    printf("ETB ID: %03ld\n", p_etb->getUid());
 
+    for(int i = 1; i < 7; i++)
+    {
+        printf("CP %d: [UID %04lld| SoC %05.2f | charging : %s]\n",
+        i,
+        p_etb->getBattUidOfCP(i),
+        p_etb->getBattSocOfCP(i),
+        p_etb->getBattStateofCP(i) == CP_CHARGING ? "YES" : "NO" );
+    }
     cout << endl;
 }
