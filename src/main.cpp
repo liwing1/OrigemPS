@@ -69,7 +69,7 @@ int main() {
         .cicleCounter = 0
     };
 
-    while(simulation.timeStamp < 2000);
+    while(simulation.timeStamp < 1800)
     {
         simulation_state_mng(&simulation, &moto);
         // process_dynamic_model();
@@ -172,8 +172,6 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_BREAK;
-
-                cout << cont << endl;
             }
 
             break; 
