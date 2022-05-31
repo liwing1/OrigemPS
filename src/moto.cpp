@@ -75,3 +75,36 @@ float Moto::getBattSoc( void )
 {
     return this->battery->getSoc();
 }
+
+
+int Moto::setPlate( string _plate )
+{
+    this->plate = _plate;
+    return 0;
+}
+
+int Moto::setSpeed( float _speed )
+{
+    this->speed = _speed;
+    return 0;
+}
+
+string Moto::getPlate( void )
+{
+    return this->plate;
+}
+
+float Moto::getSpeed( void )
+{
+    return this->speed;
+}
+
+int Moto::setPlate( string _plate )
+{
+    this->plate = _plate;
+}
+
+Battery* Moto::getBattery( void )
+{
+    return this->battery;
+}
