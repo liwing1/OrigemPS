@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <typeinfo>
+#include <cmath>
 #include "battery.hpp"
 #include "moto.hpp"
 #include "etb.hpp"
@@ -89,6 +91,9 @@ int main() {
                 moto.setSpeed( moto.getSpeed() - 2.0 );
             }
 
+
+            //Bateria da Moto
+            battery.setSoc( battery.getSoc() - 0.01 - pow((moto.getSpeed()/MAX_SPEED), 2) * 0.05 );
 
         }
     }
