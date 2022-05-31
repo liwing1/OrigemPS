@@ -93,7 +93,7 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
             }
             else if( p_simulation->timeOutBreak )
             {
-                p_moto->setAccelerator(false);
+                p_moto->setBreaker(true);
                 p_simulation->timeOutBreak--;
                 p_simulation->timeStamp++;
             }
@@ -127,7 +127,7 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
             }
             else if( p_simulation->timeOutBreak )
             {  
-                p_moto->setAccelerator(false);
+                p_moto->setBreaker(true);
                 p_simulation->timeOutBreak--;
                 p_simulation->timeStamp++;
             }
