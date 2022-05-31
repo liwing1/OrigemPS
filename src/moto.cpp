@@ -25,31 +25,6 @@ Moto::~Moto( void )
 }
 
 
-int Moto::turnOn( void )
-{
-    if( this->battery != NULL )
-    {
-        if( this->battery->getSoc() > 0 && this->battery->getSoc() <= 100 )
-        {
-            this->state = ON;   
-        }
-        else
-        {
-            cout << "Bateria < 0 ou > 100!" << endl;
-            return 1;
-        }
-    }
-    return 0;
-}
-
-
-int Moto::turnOff( void )
-{
-    this->state = STAND_BY;
-    return 0;
-}
-
-
 void Moto::attatchBattery( Battery* _battery )
 {
     this->battery = _battery;
@@ -101,4 +76,70 @@ float Moto::getSpeed( void )
 Battery* Moto::getBattery( void )
 {
     return this->battery;
+}
+
+int Moto::turnOn( void )
+{
+    if(this->state == MOTO_STATE_SB)
+    {
+        this->state = MOTO_STATE_ON;
+    }
+    else
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int Moto::turnOff( void )
+{
+    if(this->state != MOTO_STATE_SB)
+    {
+        this->state = MOTO_STATE_SB;
+    }
+    else
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int Moto::setAccelerator( bool set )
+{
+    if(this->state != MOTO_STATE_SB)    // Verifica se esta ligada
+    {
+        if(set)
+        {
+            this->state = MOTO_STATE_ACCEL;
+        }
+        else
+        {
+            this->state = MOTO_STATE_ON;
+        }
+    }
+    else
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int Moto::setBreaker( bool set )
+{
+    if(this->state != MOTO_STATE_SB)    // Verifica se esta ligada
+    {
+        if(set)
+        {
+            this->state = MOTO_STATE_BREAK;
+        }
+        else
+        {
+            this->state = MOTO_STATE_ON;
+        }
+    }
+    else
+    {
+        return 1;
+    }
+    return 0;
 }

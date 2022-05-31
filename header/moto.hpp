@@ -11,8 +11,10 @@
 using namespace std;
 
 typedef enum{
-    STAND_BY,
-    ON
+    MOTO_STATE_SB,
+    MOTO_STATE_ON,
+    MOTO_STATE_ACCEL,
+    MOTO_STATE_BREAK
 }stateMoto_t;
 
 class Battery;
@@ -33,8 +35,8 @@ class Moto : public Host{
         void attatchBattery( Battery* _battery );
         void detatchBattery( void );
 
-        int toggleAccelerator( void );
-        int toggleBreaker( void );
+        int setAccelerator( bool set );
+        int setBreaker( bool set );
 
         long long int getBattUid( void );
         float getBattSoc( void );
