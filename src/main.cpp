@@ -2,6 +2,8 @@
 #include <string>
 #include "battery.hpp"
 #include "moto.hpp"
+#include "etb.hpp"
+#include "cp.hpp"
 
 using namespace std;
 

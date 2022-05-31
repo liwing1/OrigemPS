@@ -6,6 +6,6 @@
 class CP{
     Battery* battery;
     int state;
-}
+};
 
 #endif
