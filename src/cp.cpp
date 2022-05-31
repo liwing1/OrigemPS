@@ -32,3 +32,14 @@ stateCP_t CP::getState( void )
 {
     return this->state;
 }
+
+long long int CP::getBattUid( void )
+{
+    return this->battery->getUid();
+}
+
+
+float CP::getBattSoc( void )
+{
+    return this->battery->getSoc();
+}

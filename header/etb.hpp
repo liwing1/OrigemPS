@@ -5,7 +5,7 @@
 #include "cp.hpp"
 
 class ETB{
-    private:
+    protected:
         long int uid;
         CP* cps;
 
@@ -21,6 +21,10 @@ class ETB{
 
         int getAmountOfBattTotal( void );
         int getAmountOfBattCharging( void );
+
+        long long int getBattUidOfCP( int idx_cp );
+        float getBattSocOfCP( int idx_cp );
+        stateCP_t getBattStateofCP( int idx_cp );
 
         int getTimeToFinishCharging( int idx_cp );
         

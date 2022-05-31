@@ -101,3 +101,21 @@ int ETB::endChgBattOnCP( int idx_cp )
     }
     return 0;
 }
+
+
+long long int ETB::getBattUidOfCP( int idx_cp )
+{
+    return this->cps[idx_cp].getBattUid();
+}
+
+
+float ETB::getBattSocOfCP( int idx_cp )
+{
+    return this->cps[idx_cp].getBattSoc();
+}
+
+
+stateCP_t ETB::getBattStateofCP( int idx_cp )
+{
+    return this->cps[idx_cp].getState();
+}

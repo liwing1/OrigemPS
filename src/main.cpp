@@ -120,6 +120,8 @@ int main() {
 
     moto.attatchBattery(&battery1);
 
+    print_log( &moto, &etb );
+
 
     return 0;
 }
@@ -269,4 +271,13 @@ void print_log( Moto* p_moto, ETB* p_etb )
     printf("Speed: %02.0f\n", p_moto->getSpeed());
     printf("Attatched Battery UID: %04lld\n", p_moto->getBattUid());
     printf("Motorcycle battery: %05.2f\n", p_moto->getBattSoc());
+    cout << endl;
+
+    printf("%03ld", p_etb->getUid());
+    printf("CP 1: [UID %04lld| SoC %05.2f | charging : %s]\n",
+        p_etb->getBattUidOfCP(1),
+        p_etb->getBattSocOfCP(1),
+        p_etb->getBattStateofCP(1) == CP_CHARGING ? "YES" : "NO" );
+
+    cout << endl;
 }
