@@ -8,6 +8,8 @@
 #include "battery.hpp"
 #include "host.hpp"
 
+#define MAX_SPEED   60
+
 using namespace std;
 
 typedef enum{
@@ -46,6 +48,7 @@ class Moto : public Host{
         string getPlate( void );
         float getSpeed( void );
         Battery* getBattery( void );
+        stateMoto_t getState( void );
 
 };
 

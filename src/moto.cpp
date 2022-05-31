@@ -59,6 +59,15 @@ int Moto::setPlate( string _plate )
 
 int Moto::setSpeed( float _speed )
 {
+    if( _speed > MAX_SPEED )
+    {
+        _speed = MAX_SPEED;
+    }
+    else if ( _speed < 0 )
+    {
+        _speed = 0;
+    }
+    
     this->speed = _speed;
     return 0;
 }
@@ -142,4 +151,9 @@ int Moto::setBreaker( bool set )
         return 1;
     }
     return 0;
+}
+
+stateMoto_t Moto::getState( void )
+{
+    return this->state;
 }

@@ -77,6 +77,19 @@ int main() {
         if(simulation_advance(&simulation, &moto))
         {
             simulation.timeStamp++;
+
+            //Modelo Dinamico
+            //Moto
+            if( MOTO_STATE_ACCEL == moto.getState() )
+            {
+                moto.setSpeed( moto.getSpeed() + 0.2 );
+            }
+            else if( MOTO_STATE_BREAK == moto.getState() )
+            {
+                moto.setSpeed( moto.getSpeed() - 2.0 );
+            }
+
+
         }
     }
 
