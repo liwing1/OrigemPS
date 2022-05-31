@@ -1,5 +1,6 @@
 #include <iostream>
 #include "etb.hpp"
+#include "battery.hpp"
 
 using namespace std;
 

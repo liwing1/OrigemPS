@@ -21,7 +21,6 @@ class Moto : public Host{
     private:
         string plate;
         float speed;
-        Battery* battery;
         stateMoto_t state;
 
     public:
