@@ -30,7 +30,7 @@ typedef struct{
 
 int cont = 0;
 
-int simulation_state_mng( simulation_t* , Moto* p_moto );
+int simulation_advance( simulation_t* , Moto* p_moto );
 void process_dynamic_model( Moto* p_moto );
 
 int main() {
@@ -74,18 +74,17 @@ int main() {
 
     while(simulation.timeStamp < 1800)
     {
-        if(simulation_state_mng(&simulation, &moto))
+        if(simulation_advance(&simulation, &moto))
         {
             simulation.timeStamp++;
         }
-        // process_dynamic_model( &moto );
     }
 
     return 0;
 }
 
 
-int simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
+int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
 {
     switch (p_simulation->state)
     {
@@ -100,6 +99,8 @@ int simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
             if( p_simulation->cicleCounter > 6 )
             {
+                p_simulation->timeOutAccel = 0;
+                p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_FOUR_CICLES;
                 return HALT_SIMU;
@@ -130,6 +131,8 @@ int simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
             if( p_simulation->cicleCounter > 4 )
             {
+                p_simulation->timeOutAccel = 0;
+                p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_ACCEL;
                 return HALT_SIMU;
@@ -160,6 +163,8 @@ int simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
             if( p_simulation->cicleCounter > 1 )
             {
+                p_simulation->timeOutAccel = 0;
+                p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_BREAK;
                 return HALT_SIMU;
@@ -186,6 +191,8 @@ int simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
             if( p_simulation->cicleCounter > 1 )
             {
+                p_simulation->timeOutAccel = 0;
+                p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_END_SIM;
                 return HALT_SIMU;
