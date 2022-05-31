@@ -21,7 +21,7 @@ typedef struct{
     simulation_states_t state;
     int timeOutAccel;
     int timeOutBreak;
-    int timeOutSimul;
+    int timeStamp;
     int cicleCounter;
 }simulation_t;
 
@@ -65,11 +65,11 @@ int main() {
         .state = STATE_SIX_CICLES,
         .timeOutAccel = 180,
         .timeOutBreak = 10,
-        .timeOutSimul = 1800,
+        .timeStamp = 0,
         .cicleCounter = 0
     };
 
-    while(simulation.timeOutSimul--)
+    while(simulation.timeStamp < 2000);
     {
         simulation_state_mng(&simulation, &moto);
         // process_dynamic_model();
@@ -86,14 +86,16 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
         case STATE_SIX_CICLES:
         {
             if( p_simulation->timeOutAccel )
-            {
+            {  
                 p_moto->setAccelerator(true);
                 p_simulation->timeOutAccel--;
+                p_simulation->timeStamp++;
             }
             else if( p_simulation->timeOutBreak )
             {
                 p_moto->setAccelerator(false);
                 p_simulation->timeOutBreak--;
+                p_simulation->timeStamp++;
             }
             else
             {
@@ -105,6 +107,9 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
             if( p_simulation->cicleCounter == 6 )
             {
+                p_simulation->timeOutAccel = 120;
+                p_simulation->timeOutBreak = 12;
+
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_FOUR_CICLES;
             }
@@ -115,15 +120,16 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
         case STATE_FOUR_CICLES:
         {
             if( p_simulation->timeOutAccel )
-            {
+            { 
                 p_moto->setAccelerator(true);
                 p_simulation->timeOutAccel--;
+                p_simulation->timeStamp++;
             }
             else if( p_simulation->timeOutBreak )
-            {
+            {  
                 p_moto->setAccelerator(false);
                 p_simulation->timeOutBreak--;
-                cont += 1;
+                p_simulation->timeStamp++;
             }
             else
             {
@@ -135,6 +141,9 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
             if( p_simulation->cicleCounter == 4 )
             {
+                p_simulation->timeOutAccel = 100;
+                p_simulation->timeOutBreak = 0;
+
                 p_simulation->cicleCounter = 0;
                 p_simulation->state = STATE_ACCEL;
             }
@@ -144,12 +153,56 @@ void simulation_state_mng( simulation_t* p_simulation, Moto* p_moto )
 
         case STATE_ACCEL:
         {
-            break;   
+            if( p_simulation->timeOutAccel )
+            {
+                p_moto->setAccelerator(true);
+                p_simulation->timeOutAccel--;
+                p_simulation->timeStamp++;
+            }
+            else
+            {
+                p_simulation->cicleCounter = 1;
+            }
+
+
+            if( p_simulation->cicleCounter == 1 )
+            {
+                p_simulation->timeOutAccel = 0;
+                p_simulation->timeOutBreak = 32;
+
+                p_simulation->cicleCounter = 0;
+                p_simulation->state = STATE_BREAK;
+
+                cout << cont << endl;
+            }
+
+            break; 
         }
 
         case STATE_BREAK:
         {
-            break;   
+            if( p_simulation->timeOutBreak )
+            {
+                p_moto->setBreaker(true);
+                p_simulation->timeOutBreak--;
+                p_simulation->timeStamp++;
+            }
+            else
+            {
+                p_simulation->cicleCounter++;
+            }
+
+
+            if( p_simulation->cicleCounter == 1 )
+            {
+                p_simulation->timeOutAccel = 0;
+                p_simulation->timeOutBreak = 0;
+
+                p_simulation->cicleCounter = 0;
+                p_simulation->state = STATE_END_SIM;
+            }
+
+            break;  
         }
 
         case STATE_END_SIM:
