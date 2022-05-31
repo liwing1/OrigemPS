@@ -10,16 +10,18 @@ using namespace std;
 
 int main() {
 
-    Moto moto = Moto("ASD", 60, NULL);
+    Battery battery = Battery( 123, 85, NULL);
 
-    Battery battery = Battery( 123, 85, &moto);
+    Moto moto = Moto("ASD", 60, NULL);
 
     moto.attBatt(&battery);
 
     cout << moto.getBattUid();
 
-    
-    std::cout << "Hello World!\n";
+    if(battery.getHost())
+    {
+        std::cout << "Hello World!\n";
+    }
 
     return 0;
 }

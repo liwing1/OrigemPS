@@ -13,13 +13,6 @@ Battery::~Battery( void )
 {
     cout << "Bateria destruida!" << endl;
 }
-    // int setUid( long long int uid );
-    // int setSoc( float soc );
-    // int setHost( Host* host );
-
-    // long long int getUid( void );
-    // float getSoc( void );
-    // int getHost( void );
 
 int Battery::setUid( long long int _uid )
 {

@@ -6,17 +6,16 @@
 
 using namespace std;
 
-enum HOST{
-    ATT_TO_NONE,
-    ATT_TO_MOTO,
-    ATT_TO_ETB
-};
 
 Moto::Moto( string _plate, float _speed, Battery* _battery)
 {
     plate = _plate;
     speed = _speed;
     battery = _battery;
+    if(this->battery != NULL)
+    {
+        this->battery->setHost(this);
+    }
 }
 
 
@@ -28,11 +27,11 @@ Moto::~Moto( void )
 
 int Moto::turnOn( void )
 {
-    if( Moto::battery != NULL )
+    if( this->battery != NULL )
     {
-        if( Moto::battery->getSoc() > 0 && Moto::battery->getSoc() <= 100 )
+        if( this->battery->getSoc() > 0 && this->battery->getSoc() <= 100 )
         {
-            Moto::state = ON;   
+            this->state = ON;   
         }
         else
         {
@@ -46,14 +45,15 @@ int Moto::turnOn( void )
 
 int Moto::turnOff( void )
 {
-    Moto::state = STAND_BY;
+    this->state = STAND_BY;
     return 0;
 }
 
 
 int Moto::attBatt( Battery* _battery )
 {
-    Moto::battery = _battery;
+    this->battery = _battery;
+    this->battery->setHost(this);
     return 0;
 }
 
