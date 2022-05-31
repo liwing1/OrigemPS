@@ -3,10 +3,6 @@
 
 class Battery;
 
-CP::CP(int _state)
-{
-    state = _state;
-}
 
 CP::~CP( void )
 {
@@ -21,6 +17,16 @@ void CP::attatchBattery( Battery* _battery )
 
 void CP::detatchBattery( void )
 {
-    this->battery = NULL;
     this->battery->setHost(NULL);
+    this->battery = NULL;
+}
+
+void CP::setState( stateCP_t _state )
+{
+    this->state = _state;
+}
+
+stateCP_t CP::getState( void )
+{
+    return this->state;
 }

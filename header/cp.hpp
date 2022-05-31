@@ -4,17 +4,26 @@
 #include "battery.hpp"
 #include "host.hpp"
 
+typedef enum{
+    CP_EMPTY,
+    CP_ATTATCHED,
+    CP_CHARGING,
+}stateCP_t;
+
 class Battery;
 
 class CP : public Host{
-    int state;
+    stateCP_t state;
 
     public:
-    CP( int _state );
+    CP() = default;
     ~CP( void );
 
     void attatchBattery( Battery* _battery );
     void detatchBattery( void );
+
+    void setState( stateCP_t _state );
+    stateCP_t getState( void );
 };
 
 #endif

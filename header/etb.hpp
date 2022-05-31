@@ -10,7 +10,7 @@ class ETB{
         CP* cps;
 
     public:
-        ETB( long int _uid );
+        ETB( long int _uid, CP* _cps );
         ~ETB( void );
 
         int attBattToCP( Battery* _battery, int idx_cp );
@@ -19,13 +19,13 @@ class ETB{
         int initChgBattOnCP( int idx_cp );
         int endChgBattOnCP( int idx_cp );
 
-        int getAmountBattTotal( void );
-        int getAmountBattChargin( void );
+        int getAmountOfBattTotal( void );
+        int getAmountOfBattCharging( void );
 
         int getTimeToFinishCharging( int idx_cp );
         
         int setUid(long int _uid);
-        int setCp(CP _cp, int idx_cp);
+        int setCp(CP _cp, int _idx_cp);
 
         long int getUid( void );
         CP getCp(int idx_cp);

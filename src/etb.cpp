@@ -4,27 +4,11 @@
 
 using namespace std;
 
-        // ETB( long int _uid, CP _cps[6] );
-        // ~ETB( void );
 
-        // int attBattToCP( Battery* _battery, int idx_cp );
-        // int dttBattToCP( int idx_cp );
-
-        // int initChgBattOnCP( int idx_cp );
-        // int endChgBattOnCP( int idx_cp );
-
-        // int getAmountBattTotal( void );
-        // int getAmountBattChargin( void );
-
-        // int getTimeToFinishCharging( int idx_cp );
-        
-        // int setUid(long int _uid);
-        // int setCp(CP _cp, int idx_cp);
-
-        // long int getUid( void );
-        // CP getCp(int idx_cp);
-
-ETB::ETB( long int _uid ) : uid(_uid), cps{0}{}
+ETB::ETB( long int _uid, CP* _cps){
+    uid = _uid;
+    cps = _cps;
+}
 
 ETB::~ETB( void )
 {
@@ -34,5 +18,86 @@ ETB::~ETB( void )
 int ETB::attBattToCP( Battery* _battery, int idx_cp )
 {
     this->cps[idx_cp].attatchBattery(_battery);
+    this->cps[idx_cp].setState(CP_ATTATCHED);
+    return 0;
+}
+
+int ETB::dttBattToCP( int idx_cp )
+{
+    this->cps[idx_cp].attatchBattery(NULL);
+    return 0;
+}
+
+int ETB::getAmountOfBattTotal( void )
+{
+    int amountOfBatteries = 0;
+    for( int i = 0; i < 6; i++)
+    {
+        if( this->cps[i].getState() )
+        {
+            amountOfBatteries++;
+        }
+    }
+    return amountOfBatteries;
+}
+
+int ETB::getAmountOfBattCharging( void )
+{
+    int amountOfBatteries = 0;
+    for( int i = 0; i < 6; i++)
+    {
+        if( this->cps[i].getState() == CP_CHARGING)
+        {
+            amountOfBatteries++;
+        }
+    }
+    return amountOfBatteries;
+}
+
+int ETB::setUid( long int _uid )
+{
+    this->uid = _uid;
+    return 0;
+}
+
+int ETB::setCp(CP _cp, int _idx_cp)
+{
+    this->cps[_idx_cp] = _cp;
+    return 0;
+}
+
+long int ETB::getUid( void )
+{
+    return this->uid;
+}
+
+CP ETB::getCp(int idx_cp)
+{
+    return this->cps[idx_cp];
+}
+
+int ETB::initChgBattOnCP( int idx_cp )
+{
+    if(this->cps[idx_cp].getState() == CP_ATTATCHED)
+    {
+        this->cps[idx_cp].setState( CP_CHARGING );
+    }
+    else
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int ETB::endChgBattOnCP( int idx_cp )
+{
+    if(this->cps[idx_cp].getState() == CP_CHARGING)
+    {
+        this->cps[idx_cp].setState( CP_ATTATCHED );
+    }
+    else
+    {
+        return 1;
+    }
     return 0;
 }

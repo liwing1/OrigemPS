@@ -59,8 +59,8 @@ void Moto::attatchBattery( Battery* _battery )
 
 void Moto::detatchBattery( void )
 {
-    this->battery = NULL;
     this->battery->setHost(NULL);
+    this->battery = NULL;
 }
 
 
