@@ -3,6 +3,7 @@
 #include <vector>
 #include <typeinfo>
 #include <cmath>
+#include <stdio.h>
 #include "battery.hpp"
 #include "moto.hpp"
 #include "etb.hpp"
@@ -26,6 +27,7 @@ typedef struct{
     simulation_states_t state;
     int timeOutAccel;
     int timeOutBreak;
+    int timeOutPrint;
     int timeStamp;
     int cicleCounter;
 }simulation_t;
@@ -33,7 +35,7 @@ typedef struct{
 int cont = 0;
 
 int simulation_advance( simulation_t* , Moto* p_moto );
-void process_dynamic_model( Moto* p_moto );
+void print_log( Moto* p_moto, ETB* p_etb );
 
 int main() {
 
@@ -70,6 +72,7 @@ int main() {
         .state = STATE_SIX_CICLES,
         .timeOutAccel = 0,
         .timeOutBreak = 0,
+        .timeOutPrint = 0,
         .timeStamp = 0,
         .cicleCounter = 0
     };
@@ -79,6 +82,7 @@ int main() {
         if(simulation_advance(&simulation, &moto))
         {
             simulation.timeStamp++;
+            simulation.timeOutPrint++;
 
             //Modelo Dinamico
             //Moto
@@ -95,8 +99,27 @@ int main() {
             //Bateria da Moto
             battery.setSoc( battery.getSoc() - 0.01 - pow((moto.getSpeed()/MAX_SPEED), 2) * 0.05 );
 
+            if(simulation.timeOutPrint == 10)
+            {
+                simulation.timeOutPrint = 0;
+                print_log( &moto, &etb );
+            }
+
         }
     }
+
+    //Momento de troca de bateria
+    moto.detatchBattery();
+    etb.dttBattToCP(1);
+
+    etb.attBattToCP(&battery, 1);
+    etb.initChgBattOnCP(1);
+
+    //Passa 10 segundos
+    simulation.timeStamp += 10;
+
+    moto.attatchBattery(&battery1);
+
 
     return 0;
 }
@@ -240,7 +263,10 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
 }
 
 
-void process_dynamic_model( Moto* p_moto )
+void print_log( Moto* p_moto, ETB* p_etb )
 {
-
+    cout << "Motorcycle plate: " << p_moto->getPlate() << endl;
+    printf("Speed: %02.0f\n", p_moto->getSpeed());
+    printf("Attatched Battery UID: %04lld\n", p_moto->getBattUid());
+    printf("Motorcycle battery: %05.2f\n", p_moto->getBattSoc());
 }
