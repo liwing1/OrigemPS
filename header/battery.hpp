@@ -5,23 +5,28 @@
 #define BATTERY_HPP
 
 
+#include "moto.hpp"
+#include "cp.hpp"
+#include "host.hpp"
+
 class Battery{
-    protected:
+    private:
         long long int uid;
         float soc;
-        int host;
+        Host* host;
 
     public:
-        Battery( long long int _uid, float _soc, int _host );
+        Battery( long long int _uid, float _soc, Host* _host );
         ~Battery( void );
 
         int setUid( long long int _uid );
         int setSoc( float _soc );
-        int setHost( int _host );
+        int setHost( Host* host );
 
         long long int getUid( void );
         float getSoc( void );
-        int getHost( void );
+        Host* getHost( void );
 };
+
 
 #endif

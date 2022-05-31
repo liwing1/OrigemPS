@@ -3,11 +3,10 @@
 
 using namespace std;
 
-Battery::Battery( long long int _uid, float _soc, int _host )
+Battery::Battery( long long int _uid, float _soc , Host* _host) : host(_host)
 {
     uid = _uid;
     soc = _soc;
-    host = _host;
 }
 
 Battery::~Battery( void )
@@ -16,7 +15,7 @@ Battery::~Battery( void )
 }
     // int setUid( long long int uid );
     // int setSoc( float soc );
-    // int setHost( int host );
+    // int setHost( Host* host );
 
     // long long int getUid( void );
     // float getSoc( void );
@@ -24,38 +23,38 @@ Battery::~Battery( void )
 
 int Battery::setUid( long long int _uid )
 {
-    Battery::uid = _uid;
+    this->uid = _uid;
     return 0;
 }
 
 
 int Battery::setSoc( float _soc )
 {
-    Battery::soc = _soc;
+    this->soc = _soc;
     return 0;
 }
 
 
-int Battery::setHost( int _host )
+int Battery::setHost( Host* _host )
 {
-    Battery::host = _host;
+    this->host = _host;
     return 0;
 }
 
 
 long long int Battery::getUid( void )
 {
-    return Battery::uid;
+    return this->uid;
 }
 
 
 float Battery::getSoc( void )
 {
-    return Battery::soc;
+    return this->soc;
 }
 
 
-int Battery::getHost( void )
+Host* Battery::getHost( void )
 {
-    return Battery::host;
+    return this->host;
 }

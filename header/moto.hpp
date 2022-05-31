@@ -1,8 +1,12 @@
 /*
 //MOTO
 */
+#ifndef MOTO_HPP
+#define MOTO_HPP
+
 #include <string>
 #include "battery.hpp"
+#include "host.hpp"
 
 using namespace std;
 
@@ -11,7 +15,9 @@ typedef enum{
     ON
 }stateMoto_t;
 
-class Moto{
+class Battery;
+
+class Moto : public Host{
     private:
         string plate;
         float speed;
@@ -31,4 +37,10 @@ class Moto{
         int toggleAccelerator( void );
         int toggleBreaker( void );
 
+        long long int getBattUid( void );
+        float getBattSoc( void );
+        int getBattHost( void );
+
 };
+
+#endif

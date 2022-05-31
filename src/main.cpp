@@ -10,9 +10,14 @@ using namespace std;
 
 int main() {
 
-    Battery battery = Battery( 123, 85, 2 );
+    Moto moto = Moto("ASD", 60, NULL);
 
-    Moto moto = Moto("ASD", 60, &battery);
+    Battery battery = Battery( 123, 85, &moto);
+
+    moto.attBatt(&battery);
+
+    cout << moto.getBattUid();
+
     
     std::cout << "Hello World!\n";
 

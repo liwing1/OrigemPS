@@ -2,7 +2,7 @@ CC = g++
 INCDIR = header
 SRCDIR = src
 OBJDIR = obj
-CFLAGS = -c -Werror -I$(INCDIR)
+CFLAGS = -c -std=c++17 -Werror -I$(INCDIR)
 SRC = $(wildcard $(SRCDIR)/*.cpp)
 OBJ = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRC))
 EXE = ./a.out

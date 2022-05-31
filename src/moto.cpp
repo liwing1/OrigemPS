@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "moto.hpp"
+#include "battery.hpp"
 
 
 using namespace std;
@@ -24,13 +25,10 @@ Moto::~Moto( void )
     cout << "Moto Destruida!" << endl;
 }
 
-    // int triggerAccelerator( void );
-    // int triggerBreaker( void );
-    // int releaseBreaker( void );
 
 int Moto::turnOn( void )
 {
-    if( Moto::battery->getHost() == ATT_TO_MOTO )
+    if( Moto::battery != NULL )
     {
         if( Moto::battery->getSoc() > 0 && Moto::battery->getSoc() <= 100 )
         {
@@ -57,4 +55,23 @@ int Moto::attBatt( Battery* _battery )
 {
     Moto::battery = _battery;
     return 0;
+}
+
+
+int Moto::dttBatt( void )
+{
+    this->battery = NULL;
+    return 0;
+}
+
+
+long long int Moto::getBattUid( void )
+{
+    return this->battery->getUid();
+}
+
+
+float Moto::getBattSoc( void )
+{
+    return this->battery->getSoc();
 }
