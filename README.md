@@ -3,7 +3,7 @@
 ## Funcionalidades Implementadas:
 	- Classes:
 		- Bateria:
-			- Associar/Desassociar host = setHost( Host* _host )
+			- Associar/Desassociar host = setHost(Host* _host)
 			- Acesso a todos os atributos = set/get-uid/soc/host
 			
 		- Moto:

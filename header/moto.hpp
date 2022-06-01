@@ -28,29 +28,29 @@ class Moto : public Host{
         stateMoto_t state;
 
     public:
-        Moto( string _plate, float _speed, Battery* _battery);
-        ~Moto( void );
+        Moto(string _plate, float _speed, Battery* _battery);
+        ~Moto(void);
 
-        int turnOn( void );
-        int turnOff( void );
+        int turnOn(void);
+        int turnOff(void);
 
-        void attatchBattery( Battery* _battery );
-        void detatchBattery( void );
+        void attatchBattery(Battery* _battery);
+        void detatchBattery(void);
 
-        int setAccelerator( bool set );
-        int setBreaker( bool set );
+        int setAccelerator(bool set);
+        int setBreaker(bool set);
 
-        long long int getBattUid( void );
-        float getBattSoc( void );
+        long long int getBattUid(void);
+        float getBattSoc(void);
 
-        int setPlate( string _plate );
-        int setSpeed( float _speed );
-        string getPlate( void );
-        float getSpeed( void );
-        Battery* getBattery( void );
-        stateMoto_t getState( void );
+        int setPlate(string _plate);
+        int setSpeed(float _speed);
+        string getPlate(void);
+        float getSpeed(void);
+        Battery* getBattery(void);
+        stateMoto_t getState(void);
 
-        void updateAttributes( void );
+        void updateAttributes(void);
 
 };
 

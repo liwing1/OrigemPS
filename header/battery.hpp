@@ -17,16 +17,16 @@ class Battery{
         Host* host;
 
     public:
-        Battery( long long int _uid, float _soc, Host* _host );
-        ~Battery( void );
+        Battery(long long int _uid, float _soc, Host* _host);
+        ~Battery(void);
 
-        int setUid( long long int _uid );
-        int setSoc( float _soc );
-        int setHost( Host* host );
+        int setUid(long long int _uid);
+        int setSoc(float _soc);
+        int setHost(Host* host);
 
-        long long int getUid( void );
-        float getSoc( void );
-        Host* getHost( void );
+        long long int getUid(void);
+        float getSoc(void);
+        Host* getHost(void);
 };
 
 

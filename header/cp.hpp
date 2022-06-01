@@ -17,18 +17,18 @@ class CP : public Host{
 
     public:
     CP() = default;
-    ~CP( void );
+    ~CP(void);
 
-    void attatchBattery( Battery* _battery );
-    void detatchBattery( void );
+    void attatchBattery(Battery* _battery);
+    void detatchBattery(void);
 
-    void setState( stateCP_t _state );
-    stateCP_t getState( void );
+    void setState(stateCP_t _state);
+    stateCP_t getState(void);
 
-    void setBattUid( long long int _uid );
-    void setBattSoc( float _soc );
-    long long int getBattUid( void );
-    float getBattSoc( void );
+    void setBattUid(long long int _uid);
+    void setBattSoc(float _soc);
+    long long int getBattUid(void);
+    float getBattSoc(void);
 };
 
 #endif

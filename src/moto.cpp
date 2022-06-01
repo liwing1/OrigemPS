@@ -8,7 +8,7 @@
 using namespace std;
 
 
-Moto::Moto( string _plate, float _speed, Battery* _battery)
+Moto::Moto(string _plate, float _speed, Battery* _battery)
 {
     plate = _plate;
     speed = _speed;
@@ -20,58 +20,58 @@ Moto::Moto( string _plate, float _speed, Battery* _battery)
 }
 
 
-Moto::~Moto( void )
+Moto::~Moto(void)
 {
     return;
 }
 
 
-void Moto::attatchBattery( Battery* _battery )
+void Moto::attatchBattery(Battery* _battery)
 {
     this->battery = _battery;
     this->battery->setHost(this);
 }
 
 
-void Moto::detatchBattery( void )
+void Moto::detatchBattery(void)
 {
     this->battery->setHost(NULL);
     this->battery = NULL;
 }
 
 
-long long int Moto::getBattUid( void )
+long long int Moto::getBattUid(void)
 {
     return this->battery->getUid();
 }
 
 
-float Moto::getBattSoc( void )
+float Moto::getBattSoc(void)
 {
     return this->battery->getSoc();
 }
 
 
-int Moto::setPlate( string _plate )
+int Moto::setPlate(string _plate)
 {
     this->plate = _plate;
     return 0;
 }
 
-int Moto::setSpeed( float _speed )
+int Moto::setSpeed(float _speed)
 {
-    if( _speed > MAX_SPEED )
+    if(_speed > MAX_SPEED)
     {
         _speed = MAX_SPEED;
     }
-    else if ( _speed < 0 )
+    else if (_speed < 0)
     {
         _speed = 0;
     }
 
-    if( _speed > this->speed )  // Velocidade so aumenta se tiver bateria
+    if(_speed > this->speed)  // Velocidade so aumenta se tiver bateria
     {
-        if( this->battery->getSoc() > 0)
+        if(this->battery->getSoc() > 0)
         {
             this->speed = _speed;
         }
@@ -84,22 +84,22 @@ int Moto::setSpeed( float _speed )
     return 0;
 }
 
-string Moto::getPlate( void )
+string Moto::getPlate(void)
 {
     return this->plate;
 }
 
-float Moto::getSpeed( void )
+float Moto::getSpeed(void)
 {
     return this->speed;
 }
 
-Battery* Moto::getBattery( void )
+Battery* Moto::getBattery(void)
 {
     return this->battery;
 }
 
-int Moto::turnOn( void )
+int Moto::turnOn(void)
 {
     if(this->state == MOTO_STATE_SB)
     {
@@ -112,7 +112,7 @@ int Moto::turnOn( void )
     return 0;
 }
 
-int Moto::turnOff( void )
+int Moto::turnOff(void)
 {
     if(this->state != MOTO_STATE_SB)
     {
@@ -125,7 +125,7 @@ int Moto::turnOff( void )
     return 0;
 }
 
-int Moto::setAccelerator( bool set )
+int Moto::setAccelerator(bool set)
 {
     if(this->state != MOTO_STATE_SB)    // Verifica se esta ligada
     {
@@ -145,7 +145,7 @@ int Moto::setAccelerator( bool set )
     return 0;
 }
 
-int Moto::setBreaker( bool set )
+int Moto::setBreaker(bool set)
 {
     if(this->state != MOTO_STATE_SB)    // Verifica se esta ligada
     {
@@ -165,12 +165,12 @@ int Moto::setBreaker( bool set )
     return 0;
 }
 
-stateMoto_t Moto::getState( void )
+stateMoto_t Moto::getState(void)
 {
     return this->state;
 }
 
-void Moto::updateAttributes( void )
+void Moto::updateAttributes(void)
 {
     //Modelo Dinamico
     //Moto
@@ -179,18 +179,18 @@ void Moto::updateAttributes( void )
         return;
     }
 
-    if( MOTO_STATE_ACCEL == this->state )
+    if(MOTO_STATE_ACCEL == this->state)
     {
-        this->setSpeed( this->getSpeed() + 0.2 );
+        this->setSpeed(this->getSpeed() + 0.2);
     }
-    else if( MOTO_STATE_BREAK == this->state )
+    else if(MOTO_STATE_BREAK == this->state)
     {
-        this->setSpeed( this->getSpeed() - 2.0 );
+        this->setSpeed(this->getSpeed() - 2.0);
     }
 
     if(this->battery->getHost() != NULL)
     {
-        this->battery->setSoc( this->battery->getSoc() - 0.01 - pow(this->getSpeed()/MAX_SPEED, 2) * 0.05);
+        this->battery->setSoc(this->battery->getSoc() - 0.01 - pow(this->getSpeed()/MAX_SPEED, 2) * 0.05);
     }
 
     return;

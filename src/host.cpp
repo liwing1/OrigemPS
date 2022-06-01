@@ -3,12 +3,12 @@
 
 class Battery;
 
-void Host::attatchBattery( Battery* _battery )
+void Host::attatchBattery(Battery* _battery)
 {
     this->battery = _battery;
 }
 
-void Host::detatchBattery( void )
+void Host::detatchBattery(void)
 {
     this->battery = NULL;
 }

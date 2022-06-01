@@ -8,8 +8,8 @@ class Host{
     protected:
         Battery* battery;
     public:
-        void attatchBattery( Battery* _battery );
-        void detatchBattery( void );
+        void attatchBattery(Battery* _battery);
+        void detatchBattery(void);
 };
 
 #endif

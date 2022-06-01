@@ -5,36 +5,36 @@
 using namespace std;
 
 
-ETB::ETB( long int _uid, CP* _cps){
+ETB::ETB(long int _uid, CP* _cps){
     uid = _uid;
     cps = _cps;
 }
 
-ETB::~ETB( void )
+ETB::~ETB(void)
 {
     return;
 }
 
-int ETB::attBattToCP( Battery* _battery, int idx_cp )
+int ETB::attBattToCP(Battery* _battery, int idx_cp)
 {
     this->cps[idx_cp].attatchBattery(_battery);
     this->cps[idx_cp].setState(CP_ATTATCHED);
     return 0;
 }
 
-int ETB::dttBattToCP( int idx_cp )
+int ETB::dttBattToCP(int idx_cp)
 {
     this->cps[idx_cp].setState(CP_EMPTY);
     this->cps[idx_cp].detatchBattery();
     return 0;
 }
 
-int ETB::getAmountOfBattTotal( void )
+int ETB::getAmountOfBattTotal(void)
 {
     int amountOfBatteries = 0;
-    for( int i = 0; i < 8; i++)
+    for(int i = 0; i < 8; i++)
     {
-        if( this->cps[i].getState() )
+        if(this->cps[i].getState())
         {
             amountOfBatteries++;
         }
@@ -42,12 +42,12 @@ int ETB::getAmountOfBattTotal( void )
     return amountOfBatteries;
 }
 
-int ETB::getAmountOfBattCharging( void )
+int ETB::getAmountOfBattCharging(void)
 {
     int amountOfBatteries = 0;
-    for( int i = 0; i < 6; i++)
+    for(int i = 0; i < 6; i++)
     {
-        if( this->cps[i].getState() == CP_CHARGING)
+        if(this->cps[i].getState() == CP_CHARGING)
         {
             amountOfBatteries++;
         }
@@ -55,7 +55,7 @@ int ETB::getAmountOfBattCharging( void )
     return amountOfBatteries;
 }
 
-int ETB::setUid( long int _uid )
+int ETB::setUid(long int _uid)
 {
     this->uid = _uid;
     return 0;
@@ -67,7 +67,7 @@ int ETB::setCp(CP _cp, int _idx_cp)
     return 0;
 }
 
-long int ETB::getUid( void )
+long int ETB::getUid(void)
 {
     return this->uid;
 }
@@ -77,11 +77,11 @@ CP ETB::getCp(int idx_cp)
     return this->cps[idx_cp];
 }
 
-int ETB::initChgBattOnCP( int idx_cp )
+int ETB::initChgBattOnCP(int idx_cp)
 {
     if(this->cps[idx_cp].getState() == CP_ATTATCHED)
     {
-        this->cps[idx_cp].setState( CP_CHARGING );
+        this->cps[idx_cp].setState(CP_CHARGING);
     }
     else
     {
@@ -90,11 +90,11 @@ int ETB::initChgBattOnCP( int idx_cp )
     return 0;
 }
 
-int ETB::endChgBattOnCP( int idx_cp )
+int ETB::endChgBattOnCP(int idx_cp)
 {
     if(this->cps[idx_cp].getState() == CP_CHARGING)
     {
-        this->cps[idx_cp].setState( CP_ATTATCHED );
+        this->cps[idx_cp].setState(CP_ATTATCHED);
     }
     else
     {
@@ -104,35 +104,35 @@ int ETB::endChgBattOnCP( int idx_cp )
 }
 
 
-long long int ETB::getBattUidOfCP( int idx_cp )
+long long int ETB::getBattUidOfCP(int idx_cp)
 {
     return this->cps[idx_cp].getBattUid();
 }
 
 
-float ETB::getBattSocOfCP( int idx_cp )
+float ETB::getBattSocOfCP(int idx_cp)
 {
     return this->cps[idx_cp].getBattSoc();
 }
 
 
-stateCP_t ETB::getBattStateofCP( int idx_cp )
+stateCP_t ETB::getBattStateofCP(int idx_cp)
 {
     return this->cps[idx_cp].getState();
 }
 
 
-void ETB::updateAttributes( void )
+void ETB::updateAttributes(void)
 {
-    for( int i = 1; i < 7; i++ )
+    for(int i = 1; i < 7; i++)
     {
-        if( CP_CHARGING == this->cps[i].getState() )
+        if(CP_CHARGING == this->cps[i].getState())
         {
-            this->cps[i].setBattSoc( this->cps[i].getBattSoc() + 0.05 );
+            this->cps[i].setBattSoc(this->cps[i].getBattSoc() + 0.05);
         }
-        else if( CP_ATTATCHED == this->cps[i].getState() )
+        else if(CP_ATTATCHED == this->cps[i].getState())
         {
-            this->cps[i].setBattSoc( this->cps[i].getBattSoc() - 0.01 );
+            this->cps[i].setBattSoc(this->cps[i].getBattSoc() - 0.01);
         }
     }
 }
