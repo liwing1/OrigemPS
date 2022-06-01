@@ -76,7 +76,7 @@ int main() {
 
     /* Inicializa Moto e a bateria*/
     Moto moto = Moto("ASD-4567", 60, NULL);
-    Battery battery_moto = Battery(000, 85, NULL);
+    Battery battery_moto = Battery(999, 85, NULL);
     moto.attatchBattery(&battery_moto);
 
     /* Iniciar Simulacao */
@@ -93,20 +93,20 @@ int main() {
     {
         if(simulation_advance(&simulation, &moto))
         {
-            if(simulation.timeStamp == TIME_STAMP_INIT_CHARGE_CP_4)
+            if(TIME_STAMP_INIT_CHARGE_CP_4 == simulation.timeStamp)
             {
                 etb.initChgBattOnCP(4);
             }
-            else if(simulation.timeStamp == TIME_STAMP_INIT_CHARGE_CP_5)
+            else if(TIME_STAMP_INIT_CHARGE_CP_5 == simulation.timeStamp)
             {
                 etb.initChgBattOnCP(5);
             }
-            else if(simulation.timeStamp == TIME_STAMP_INIT_CHARGE_CP_6)
+            else if(TIME_STAMP_INIT_CHARGE_CP_6 == simulation.timeStamp)
             {
                 etb.initChgBattOnCP(6);
             }
 
-            else if(simulation.timeStamp == TIME_STAMP_30_MIN)
+            else if(TIME_STAMP_30_MIN == simulation.timeStamp)
             {
                 //Momento de troca de bateria
                 moto.detatchBattery();
@@ -116,7 +116,7 @@ int main() {
                 etb.initChgBattOnCP(1);
             }
 
-            else if(simulation.timeStamp == TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC)
+            else if((TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC) == simulation.timeStamp)
             {
                 moto.attatchBattery(&battery1);
             }
@@ -127,7 +127,7 @@ int main() {
             moto.updateAttributes();
             etb.updateAttributes();
 
-            if(simulation.timeOutPrint == (10 * TIME_STAMP_1_SEC))
+            if((10 * TIME_STAMP_1_SEC) == simulation.timeOutPrint)
             {
                 simulation.timeOutPrint = 0;
                 print_log(&moto, &etb);
@@ -298,13 +298,13 @@ void print_log(Moto* p_moto, ETB* p_etb)
 
     for(int i = 1; i < 7; i++)
     {
-        if(CP_EMPTY != p_etb->getBattStateofCP(i))
+        if(CP_STATE_EMPTY != p_etb->getBattStateofCP(i))
         {
             printf("CP %d: [UID %04lld | SoC %05.2f | charging: %s]\n",
             i,
             p_etb->getBattUidOfCP(i),
             p_etb->getBattSocOfCP(i),
-            p_etb->getBattStateofCP(i) == CP_CHARGING ? "YES" : "NO");
+            p_etb->getBattStateofCP(i) == CP_STATE_CHARGING ? "YES" : "NO");
         }
         else
         {

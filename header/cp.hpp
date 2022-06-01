@@ -5,9 +5,9 @@
 #include "host.hpp"
 
 typedef enum{
-    CP_EMPTY,
-    CP_ATTATCHED,
-    CP_CHARGING,
+    CP_STATE_EMPTY,
+    CP_STATE_ATTATCHED,
+    CP_STATE_CHARGING,
 }stateCP_t;
 
 class Battery;

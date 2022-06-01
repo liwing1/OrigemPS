@@ -101,7 +101,7 @@ Battery* Moto::getBattery(void)
 
 int Moto::turnOn(void)
 {
-    if(this->state == MOTO_STATE_SB)
+    if(MOTO_STATE_SB == this->state)
     {
         this->state = MOTO_STATE_ON;
     }
