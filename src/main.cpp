@@ -16,11 +16,11 @@ using namespace std;
 using std::vector;
 
 typedef enum{
-    STATE_SIX_CICLES,
-    STATE_FOUR_CICLES,
-    STATE_ACCEL,
-    STATE_BREAK,
-    STATE_END_SIM
+    SIMU_STATE_SIX_CICLES,
+    SIMU_STATE_FOUR_CICLES,
+    SIMU_STATE_ACCEL,
+    SIMU_STATE_BREAK,
+    SIMU_STATE_END
 }simulation_states_t;
 
 typedef struct{
@@ -72,7 +72,7 @@ int main() {
 
     /* Iniciar Simulacao */
     simulation_t simulation = {
-        .state = STATE_SIX_CICLES,
+        .state = SIMU_STATE_SIX_CICLES,
         .timeOutAccel = 0,
         .timeOutBreak = 0,
         .timeOutPrint = 0,
@@ -137,7 +137,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
 {
     switch (p_simulation->state)
     {
-        case STATE_SIX_CICLES:
+        case SIMU_STATE_SIX_CICLES:
         {
             if( p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0 )
             {
@@ -151,7 +151,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
                 p_simulation->timeOutAccel = 0;
                 p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
-                p_simulation->state = STATE_FOUR_CICLES;
+                p_simulation->state = SIMU_STATE_FOUR_CICLES;
                 return HALT_SIMU;
             }
 
@@ -169,7 +169,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
             break;   
         }
         
-        case STATE_FOUR_CICLES:
+        case SIMU_STATE_FOUR_CICLES:
         {
             if( p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0 )
             {
@@ -183,7 +183,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
                 p_simulation->timeOutAccel = 0;
                 p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
-                p_simulation->state = STATE_ACCEL;
+                p_simulation->state = SIMU_STATE_ACCEL;
                 return HALT_SIMU;
             }
 
@@ -201,7 +201,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
             break;   
         }
 
-        case STATE_ACCEL:
+        case SIMU_STATE_ACCEL:
         {
             if( p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0 )
             {
@@ -215,7 +215,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
                 p_simulation->timeOutAccel = 0;
                 p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
-                p_simulation->state = STATE_BREAK;
+                p_simulation->state = SIMU_STATE_BREAK;
                 return HALT_SIMU;
             }
 
@@ -229,7 +229,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
             break;   
         }
 
-        case STATE_BREAK:
+        case SIMU_STATE_BREAK:
         {
             if( p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0 )
             {
@@ -243,7 +243,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
                 p_simulation->timeOutAccel = 0;
                 p_simulation->timeOutBreak = 0;
                 p_simulation->cicleCounter = 0;
-                p_simulation->state = STATE_END_SIM;
+                p_simulation->state = SIMU_STATE_END;
                 return HALT_SIMU;
             }
 
@@ -256,7 +256,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
             break;   
         }
 
-        case STATE_END_SIM:
+        case SIMU_STATE_END:
         {
             return ADVANCE_SIMU;
             break;
