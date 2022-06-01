@@ -45,9 +45,11 @@ int main() {
 
     Battery battery1 = Battery( 111, 100, NULL);
     cps[1].attatchBattery(&battery1);
+    etb.initChgBattOnCP(1);
 
     Battery battery2 = Battery( 222, 100, NULL);
     cps[2].attatchBattery(&battery2);
+    etb.initChgBattOnCP(2);
 
     Battery battery3 = Battery( 333, 100, NULL);
     cps[3].attatchBattery(&battery3);

@@ -24,6 +24,7 @@ int ETB::attBattToCP( Battery* _battery, int idx_cp )
 
 int ETB::dttBattToCP( int idx_cp )
 {
+    this->cps[idx_cp].setState(CP_EMPTY);
     this->cps[idx_cp].detatchBattery();
     return 0;
 }
@@ -128,6 +129,10 @@ void ETB::updateAttributes( void )
         if( CP_CHARGING == this->cps[i].getState() )
         {
             this->cps[i].setBattSoc( this->cps[i].getBattSoc() + 0.05 );
+        }
+        else if( CP_ATTATCHED == this->cps[i].getState() )
+        {
+            this->cps[i].setBattSoc( this->cps[i].getBattSoc() - 0.01 );
         }
     }
 }
