@@ -119,3 +119,15 @@ stateCP_t ETB::getBattStateofCP( int idx_cp )
 {
     return this->cps[idx_cp].getState();
 }
+
+
+void ETB::updateAttributes( void )
+{
+    for( int i = 1; i < 7; i++ )
+    {
+        if( CP_CHARGING == this->cps[i].getState() )
+        {
+            this->cps[i].setBattSoc( this->cps[i].getBattSoc() + 0.05 );
+        }
+    }
+}

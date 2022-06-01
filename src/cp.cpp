@@ -38,8 +38,17 @@ long long int CP::getBattUid( void )
     return this->battery->getUid();
 }
 
-
 float CP::getBattSoc( void )
 {
     return this->battery->getSoc();
+}
+
+void CP::setBattUid( long long int _uid )
+{
+    this->battery->setUid( _uid );
+}
+
+void CP::setBattSoc( long _soc )
+{
+    this->battery->setSoc( _soc );
 }

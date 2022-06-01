@@ -33,6 +33,8 @@ class ETB{
 
         long int getUid( void );
         CP getCp(int idx_cp);
+
+        void updateAttributes( void );
 };
 
 #endif

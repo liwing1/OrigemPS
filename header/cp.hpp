@@ -25,6 +25,8 @@ class CP : public Host{
     void setState( stateCP_t _state );
     stateCP_t getState( void );
 
+    void setBattUid( long long int _uid );
+    void setBattSoc( long _soc );
     long long int getBattUid( void );
     float getBattSoc( void );
 };

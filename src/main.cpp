@@ -85,6 +85,7 @@ int main() {
             simulation.timeOutPrint++;
 
             moto.updateAttributes();
+            etb.updateAttributes();
 
             if(simulation.timeOutPrint == 10)
             {
