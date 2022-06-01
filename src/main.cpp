@@ -51,8 +51,9 @@ int main() {
     cps[2].attatchBattery(&battery2);
     etb.initChgBattOnCP(2);
 
-    Battery battery3 = Battery( 333, 0, NULL);
+    Battery battery3 = Battery( 333, 100, NULL);
     cps[3].attatchBattery(&battery3);
+    etb.initChgBattOnCP(3);
 
     Battery battery4 = Battery( 444, 0, NULL);
     cps[4].attatchBattery(&battery4);
@@ -83,9 +84,17 @@ int main() {
     {
         if(simulation_advance(&simulation, &moto))
         {
-            if(simulation.timeStamp == 400)
+            if( simulation.timeStamp == 400 )
             {
                 etb.initChgBattOnCP(4);
+            }
+            else if( simulation.timeStamp == 600 )
+            {
+                etb.initChgBattOnCP(5);
+            }
+            else if( simulation.timeStamp == 800 )
+            {
+                etb.initChgBattOnCP(6);
             }
 
             simulation.timeStamp++;
