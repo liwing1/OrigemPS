@@ -80,7 +80,7 @@ int main() {
         .cicleCounter = 0
     };
 
-    while(simulation.timeStamp < 1800)
+    while( simulation.timeStamp < 1811 )
     {
         if(simulation_advance(&simulation, &moto))
         {
@@ -97,6 +97,21 @@ int main() {
                 etb.initChgBattOnCP(6);
             }
 
+            else if( simulation.timeStamp == 1800 )
+            {
+                //Momento de troca de bateria
+                moto.detatchBattery();
+                etb.dttBattToCP(1);
+
+                etb.attBattToCP(&battery, 1);
+                etb.initChgBattOnCP(1);
+            }
+
+            else if( simulation.timeStamp == 1810 )
+            {
+                moto.attatchBattery(&battery1);
+            }
+
             simulation.timeStamp++;
             simulation.timeOutPrint++;
 
@@ -111,18 +126,6 @@ int main() {
 
         }
     }
-
-    //Momento de troca de bateria
-    moto.detatchBattery();
-    etb.dttBattToCP(1);
-
-    etb.attBattToCP(&battery, 1);
-    etb.initChgBattOnCP(1);
-
-    //Passa 10 segundos
-    simulation.timeStamp += 10;
-
-    moto.attatchBattery(&battery1);
 
     print_log( &moto, &etb );
 
@@ -255,7 +258,7 @@ int simulation_advance( simulation_t* p_simulation, Moto* p_moto )
 
         case STATE_END_SIM:
         {
-            return HALT_SIMU;
+            return ADVANCE_SIMU;
             break;
         }
 
@@ -272,19 +275,34 @@ void print_log( Moto* p_moto, ETB* p_etb )
 {
     cout << "Motorcycle plate: " << p_moto->getPlate() << endl;
     printf("Speed: %02.0f\n", p_moto->getSpeed());
-    printf("Attatched Battery UID: %04lld\n", p_moto->getBattUid());
-    printf("Motorcycle battery: %05.2f\n", p_moto->getBattSoc());
+    if( p_moto->getBattery() != NULL )
+    {
+        printf("Attatched Battery UID: %04lld\n", p_moto->getBattUid());
+        printf("Motorcycle battery: %05.2f%%\n", p_moto->getBattSoc());
+    }
+    else
+    {
+        printf("Attatched Battery UID: NONE\n");
+        printf("Motorcycle battery: NONE\n");
+    }
     cout << endl;
 
     printf("ETB ID: %03ld\n", p_etb->getUid());
 
     for(int i = 1; i < 7; i++)
     {
-        printf("CP %d: [UID %04lld| SoC %05.2f | charging : %s]\n",
-        i,
-        p_etb->getBattUidOfCP(i),
-        p_etb->getBattSocOfCP(i),
-        p_etb->getBattStateofCP(i) == CP_CHARGING ? "YES" : "NO" );
+        if( CP_EMPTY != p_etb->getBattStateofCP(i) )
+        {
+            printf("CP %d: [UID %04lld | SoC %05.2f | charging: %s]\n",
+            i,
+            p_etb->getBattUidOfCP(i),
+            p_etb->getBattSocOfCP(i),
+            p_etb->getBattStateofCP(i) == CP_CHARGING ? "YES" : "NO" );
+        }
+        else
+        {
+            printf("CP %d: [UID NONE | SoC NONE | charging: NO]", i);
+        }
     }
     cout << endl;
 }
