@@ -76,8 +76,8 @@ int main() {
 
     /* Inicializa Moto e a bateria*/
     Moto moto = Moto("ASD-4567", 60, NULL);
-    Battery battery = Battery(000, 85, NULL);
-    moto.attatchBattery(&battery);
+    Battery battery_moto = Battery(000, 85, NULL);
+    moto.attatchBattery(&battery_moto);
 
     /* Iniciar Simulacao */
     simulation_t simulation = {
@@ -89,7 +89,7 @@ int main() {
         .cicleCounter = 0
     };
 
-    while(simulation.timeStamp < 1811)
+    while(simulation.timeStamp < (TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC)) //Simulacao roda ate 30:10
     {
         if(simulation_advance(&simulation, &moto))
         {
@@ -112,7 +112,7 @@ int main() {
                 moto.detatchBattery();
                 etb.dttBattToCP(1);
 
-                etb.attBattToCP(&battery, 1);
+                etb.attBattToCP(&battery_moto, 1);
                 etb.initChgBattOnCP(1);
             }
 
@@ -127,7 +127,7 @@ int main() {
             moto.updateAttributes();
             etb.updateAttributes();
 
-            if(simulation.timeOutPrint == 10)
+            if(simulation.timeOutPrint == (10 * TIME_STAMP_1_SEC))
             {
                 simulation.timeOutPrint = 0;
                 print_log(&moto, &etb);
