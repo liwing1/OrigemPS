@@ -127,8 +127,6 @@ int main() {
         }
     }
 
-    print_log( &moto, &etb );
-
     return 0;
 }
 
