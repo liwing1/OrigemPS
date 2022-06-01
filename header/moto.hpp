@@ -50,6 +50,8 @@ class Moto : public Host{
         Battery* getBattery( void );
         stateMoto_t getState( void );
 
+        void updateAttributes( void );
+
 };
 
 #endif

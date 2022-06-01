@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "moto.hpp"
 #include "battery.hpp"
 
@@ -167,4 +168,25 @@ int Moto::setBreaker( bool set )
 stateMoto_t Moto::getState( void )
 {
     return this->state;
+}
+
+void Moto::updateAttributes( void )
+{
+    //Modelo Dinamico
+    //Moto
+    if( MOTO_STATE_ACCEL == this->state )
+    {
+        this->setSpeed( this->getSpeed() + 0.2 );
+    }
+    else if( MOTO_STATE_BREAK == this->state )
+    {
+        this->setSpeed( this->getSpeed() - 2.0 );
+    }
+
+    if(this->battery->getHost() != NULL)
+    {
+        this->battery->setSoc( this->battery->getSoc() - 0.01 - pow(this->getSpeed()/MAX_SPEED, 2) * 0.05);
+    }
+
+    return;
 }

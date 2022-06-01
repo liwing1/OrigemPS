@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <typeinfo>
-#include <cmath>
 #include <stdio.h>
+#include <cmath>
 #include "battery.hpp"
 #include "moto.hpp"
 #include "etb.hpp"
@@ -84,20 +84,7 @@ int main() {
             simulation.timeStamp++;
             simulation.timeOutPrint++;
 
-            //Modelo Dinamico
-            //Moto
-            if( MOTO_STATE_ACCEL == moto.getState() )
-            {
-                moto.setSpeed( moto.getSpeed() + 0.2 );
-            }
-            else if( MOTO_STATE_BREAK == moto.getState() )
-            {
-                moto.setSpeed( moto.getSpeed() - 2.0 );
-            }
-
-
-            //Bateria da Moto
-            battery.setSoc( battery.getSoc() - 0.01 - pow((moto.getSpeed()/MAX_SPEED), 2) * 0.05 );
+            moto.updateAttributes();
 
             if(simulation.timeOutPrint == 10)
             {
@@ -121,7 +108,6 @@ int main() {
     moto.attatchBattery(&battery1);
 
     print_log( &moto, &etb );
-
 
     return 0;
 }
