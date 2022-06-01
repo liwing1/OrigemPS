@@ -51,16 +51,16 @@ int main() {
     cps[2].attatchBattery(&battery2);
     etb.initChgBattOnCP(2);
 
-    Battery battery3 = Battery( 333, 100, NULL);
+    Battery battery3 = Battery( 333, 0, NULL);
     cps[3].attatchBattery(&battery3);
 
-    Battery battery4 = Battery( 444, 70, NULL);
+    Battery battery4 = Battery( 444, 0, NULL);
     cps[4].attatchBattery(&battery4);
 
-    Battery battery5 = Battery( 555, 60, NULL);
+    Battery battery5 = Battery( 555, 0, NULL);
     cps[5].attatchBattery(&battery5);
 
-    Battery battery6 = Battery( 666, 50, NULL);
+    Battery battery6 = Battery( 666, 0, NULL);
     cps[6].attatchBattery(&battery6);
 
 
@@ -83,6 +83,11 @@ int main() {
     {
         if(simulation_advance(&simulation, &moto))
         {
+            if(simulation.timeStamp == 400)
+            {
+                etb.initChgBattOnCP(4);
+            }
+
             simulation.timeStamp++;
             simulation.timeOutPrint++;
 

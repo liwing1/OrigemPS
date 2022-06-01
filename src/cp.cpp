@@ -48,7 +48,7 @@ void CP::setBattUid( long long int _uid )
     this->battery->setUid( _uid );
 }
 
-void CP::setBattSoc( long _soc )
+void CP::setBattSoc( float _soc )
 {
     this->battery->setSoc( _soc );
 }
