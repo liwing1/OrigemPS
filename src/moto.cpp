@@ -174,6 +174,11 @@ void Moto::updateAttributes( void )
 {
     //Modelo Dinamico
     //Moto
+    if(this->battery == NULL)
+    {
+        return;
+    }
+
     if( MOTO_STATE_ACCEL == this->state )
     {
         this->setSpeed( this->getSpeed() + 0.2 );
