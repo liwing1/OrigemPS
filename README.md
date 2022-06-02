@@ -21,7 +21,7 @@
 
   - Simulation:
     - Manages the state of the motorcycle(accelerate/break) according to the timestamps.
-    - The route of the motoboy was simulated using a state machine, each state is a different steo if the challenge.
+    - The route of the motoboy was simulated using a state machine, each state is a different step of the challenge.
     - If the state machine is in a state transition the simulation does not perform the dynamic model processing.
   
 
