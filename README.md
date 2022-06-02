@@ -21,6 +21,9 @@
    - The route of the motoboy was simulated using a state machine that progresses according to the challenge instructions.
    - If the state machine is in a state transition the simulation does not perform the dynamic model processing.
    - Every 10 seconds the Motorcycle and ETB attribute information is printed on the screen.
+  
+  - Host:
+    - Abstract Class for Motorcycle and CP
 
 ## Program Compilation and Execution Instructions:
   - With g++ and Make installed run:
