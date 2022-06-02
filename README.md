@@ -1,7 +1,6 @@
 # Origem Selective Process!
 
 ## Implemented Features:
- - Classes:
    - Battery:
      - Stores the SoC value, UID and which Host it is attatched with.
 			
@@ -17,13 +16,13 @@
      - Manages the charging of CPs, attatching and releasing new batteries.
      - They increase SoC value of attatched batteries after charge starts up to 100%.
     
-    - Host:
-      - Abstract Class for Motorcycle and CP.
+  - Host:
+    - Abstract Class for Motorcycle and CP.
 
- - Simulation:
-   - The route of the motoboy was simulated using a state machine that progresses according to the challenge instructions.
-   - If the state machine is in a state transition the simulation does not perform the dynamic model processing.
-   - Every 10 seconds the Motorcycle and ETB attribute information is printed on the screen.
+  - Simulation:
+    - Manages the state of the motorcycle(accelerate/break) according to the timestamps.
+    - The route of the motoboy was simulated using a state machine, each state is a different steo if the challenge.
+    - If the state machine is in a state transition the simulation does not perform the dynamic model processing.
   
 
 ## Program Compilation and Execution Instructions:
