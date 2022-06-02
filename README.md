@@ -1,26 +1,40 @@
-# Processo Seletivo Origem!
+# Origem Selective Process!
 
-## Funcionalidades Implementadas:
-	- Classes:
-		- Bateria:
-			- Associar/Desassociar host = setHost(Host* _host)
-			- Acesso a todos os atributos = set/get-uid/soc/host
+## Implemented Features:
+ - Classes:
+   - Battery:
+     - Stores the SoC value, UID and which Host it is attatched with.
 			
-		- Moto:
-			- Ligar e desligar a moto = turnOn/Off
-			- Associar/Liberar bateria = attatch/detatchBattery
-			- Acionar/soltar Acelerador = setAccelerator()
-			- Acionar/soltar Freio = setBreaker()
-			- Acesso a todos os atributos = set/get plate/speed/battery
+   - Motorcycle:
+     - Stores the value of Speed, Plate, and its current state (accelerating, braking, or stand by).
+     - When attatched to a battery, it can accelerate up to a maximum of 60km/h
+     - It can change their own speed, and the battery SoC.
 
-		- Estação de Troca de Bateria (ETB):
-			- Associar/Liberar Bateria = att/dttBattToCP()
-			- Acionar/desligar carregamento = initChgBattOnCP()
-			- Numero de bateria presentes = getAmountOfBattTotal()
-			- Numero de bateria carregando = getAmountOfBattCharging()
-			- Acesso a todos os atributos  set/get uid/cps
+   - Charging Point (CP):
+     - Stores its own state and which battery it is associated with.
+     
+   - Battery Exchange Station (ETB):
+     - Manages the charging of CPs, attatching and releasing new batteries.
+     - They increase SoC value of attatched batteries after charge starts up to 100%.
 
+ - Simulation:
+   - The route of the motoboy was simulated using a state machine that progresses according to the challenge instructions.
+   - If the state machine is in a state transition the simulation does not perform the dynamic model processing.
+   - Every 10 seconds the Motorcycle and ETB attribute information is printed on the screen.
 
-		- Ponto de Carga (CP):
-			- Associar/Liberar Bateria = detatch/attatchBattery()
-			- Acesso a todos os atributos  set/get battery/state
+## Program Compilation and Execution Instructions:
+  - With g++ and Make installed run:
+   
+   ```
+   $ make
+   ```
+  - It will generate a file called a.out
+  - To execute the program just run:
+   ```
+   $ ./a.out
+   ```
+   
+## Development Environment
+  - C++ version used was 17.
+  - The text editor used was Visual Studio Code running on Windows OS.
+  - Compilation and execution of the program was done on WSL.
