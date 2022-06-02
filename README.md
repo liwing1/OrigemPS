@@ -16,14 +16,15 @@
    - Battery Exchange Station (ETB):
      - Manages the charging of CPs, attatching and releasing new batteries.
      - They increase SoC value of attatched batteries after charge starts up to 100%.
+    
+    - Host:
+      - Abstract Class for Motorcycle and CP.
 
  - Simulation:
    - The route of the motoboy was simulated using a state machine that progresses according to the challenge instructions.
    - If the state machine is in a state transition the simulation does not perform the dynamic model processing.
    - Every 10 seconds the Motorcycle and ETB attribute information is printed on the screen.
   
-  - Host:
-    - Abstract Class for Motorcycle and CP
 
 ## Program Compilation and Execution Instructions:
   - With g++ and Make installed run:
@@ -31,7 +32,7 @@
    ```
    $ make
    ```
-  - It will generate a file called a.out
+  - It will generate a file called ```a.out```.
   - To execute the program just run:
    ```
    $ ./a.out
