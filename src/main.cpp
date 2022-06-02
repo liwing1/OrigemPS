@@ -59,33 +59,26 @@ int main() {
     moto.attatchBattery(&battery_moto);
 
     /* Iniciar Simulacao */
-    simulation_t simulation = {
-        .state = SIMU_STATE_SIX_CICLES,
-        .timeOutAccel = 0,
-        .timeOutBreak = 0,
-        .timeOutPrint = 0,
-        .timeStamp = 0,
-        .cicleCounter = 0
-    };
+    Simulation simulation = Simulation(SIMU_STATE_SIX_CICLES, 0, 0, 0, 0, 0);
 
-    while(simulation.timeStamp < (TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC)) //Simulacao roda ate 30:10
+    while(simulation.getTimeStamp() < (TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC)) //Simulacao roda ate 30:10
     {
-        if(simulation_advance(&simulation, &moto))
+        if(simulation.Advance(&simulation, &moto))
         {
-            if(TIME_STAMP_INIT_CHARGE_CP_4 == simulation.timeStamp)
+            if(TIME_STAMP_INIT_CHARGE_CP_4 == simulation.getTimeStamp())
             {
                 etb.initChgBattOnCP(4);
             }
-            else if(TIME_STAMP_INIT_CHARGE_CP_5 == simulation.timeStamp)
+            else if(TIME_STAMP_INIT_CHARGE_CP_5 == simulation.getTimeStamp())
             {
                 etb.initChgBattOnCP(5);
             }
-            else if(TIME_STAMP_INIT_CHARGE_CP_6 == simulation.timeStamp)
+            else if(TIME_STAMP_INIT_CHARGE_CP_6 == simulation.getTimeStamp())
             {
                 etb.initChgBattOnCP(6);
             }
 
-            else if(TIME_STAMP_30_MIN == simulation.timeStamp)
+            else if(TIME_STAMP_30_MIN == simulation.getTimeStamp())
             {
                 //Momento de troca de bateria
                 moto.detatchBattery();
@@ -95,20 +88,20 @@ int main() {
                 etb.initChgBattOnCP(1);
             }
 
-            else if((TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC) == simulation.timeStamp)
+            else if((TIME_STAMP_30_MIN + 10 * TIME_STAMP_1_SEC) == simulation.getTimeStamp())
             {
                 moto.attatchBattery(&battery1);
             }
 
-            simulation.timeStamp++;
-            simulation.timeOutPrint++;
+            simulation.setTimeStamp(simulation.getTimeStamp() + 1);
+            simulation.setTimeOutPrint(simulation.getTimeOutPrint() + 1);
 
             moto.updateAttributes();
             etb.updateAttributes();
 
-            if((10 * TIME_STAMP_1_SEC) == simulation.timeOutPrint)
+            if((10 * TIME_STAMP_1_SEC) == simulation.getTimeOutPrint())
             {
-                simulation.timeOutPrint = 0;
+                simulation.setTimeOutPrint(0);
                 print_log(&moto, &etb);
             }
 

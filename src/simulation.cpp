@@ -3,37 +3,119 @@
 #define ADVANCE_SIMU    1
 #define HALT_SIMU       0
 
-int simulation_advance(simulation_t* p_simulation, Moto* p_moto)
+Simulation::Simulation(
+    simulation_states_t _state,
+    int _timeOutAccel,
+    int _timeOutBreak,
+    int _timeOutPrint,
+    int _timeStamp,
+    int _cicleCounter
+    )
 {
-    switch (p_simulation->state)
+    state = _state;
+    timeOutAccel = _timeOutAccel;
+    timeOutBreak = _timeOutBreak;
+    timeOutPrint = _timeOutPrint;
+    timeStamp = _timeStamp;
+    cicleCounter = _cicleCounter;
+}
+
+Simulation::~Simulation(void)
+{
+    return;
+}
+
+void Simulation::setState(simulation_states_t _state)
+{
+    this->state = _state;
+}
+
+void Simulation::setTimeOutAccel(int _timeOutAccel)
+{
+    this->timeOutAccel = _timeOutAccel;
+}
+
+void Simulation::setTimeOutBreak(int _timeOutBreak)
+{
+    this->timeOutBreak = _timeOutBreak;
+}
+
+void Simulation::setTimeOutPrint(int _timeOutPrint)
+{
+    this->timeOutPrint = _timeOutPrint;
+}
+
+void Simulation::setTimeStamp(int _timeStamp)
+{
+    this->timeStamp = _timeStamp;
+}
+
+void Simulation::setCicleCounter(int _cicleCounter)
+{
+    this->cicleCounter = _cicleCounter;
+}
+
+simulation_states_t Simulation::getState(void)
+{
+    return this->state;
+}
+
+int Simulation::getTimeOutAccel(void)
+{
+    return this->timeOutAccel;
+}
+
+int Simulation::getTimeOutBreak(void)
+{
+    return this->timeOutBreak;
+}
+
+int Simulation::getTimeOutPrint(void)
+{
+    return this->timeOutPrint;
+}
+
+int Simulation::getTimeStamp(void)
+{
+    return this->timeStamp;
+}
+
+int Simulation::getCicleCounter(void)
+{
+    return this->cicleCounter;
+}
+
+int Simulation::Advance(Simulation* p_simulation, Moto* p_moto)
+{
+    switch (p_simulation->getState())
     {
         case SIMU_STATE_SIX_CICLES:
         {
-            if(p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0)
+            if(p_simulation->getTimeOutBreak() == 0 && p_simulation->getTimeOutAccel() == 0)
             {
-                p_simulation->timeOutAccel = 180;
-                p_simulation->timeOutBreak = 10;
-                p_simulation->cicleCounter++;
+                p_simulation->setTimeOutAccel(180);
+                p_simulation->setTimeOutBreak(10);
+                p_simulation->setCicleCounter(p_simulation->getCicleCounter() + 1);
             }
 
-            if(p_simulation->cicleCounter > 6)
+            if(p_simulation->getCicleCounter() > 6)
             {
-                p_simulation->timeOutAccel = 0;
-                p_simulation->timeOutBreak = 0;
-                p_simulation->cicleCounter = 0;
-                p_simulation->state = SIMU_STATE_FOUR_CICLES;
+                p_simulation->setTimeOutAccel(0);
+                p_simulation->setTimeOutBreak(0);
+                p_simulation->setCicleCounter(0);
+                p_simulation->setState(SIMU_STATE_FOUR_CICLES); 
                 return HALT_SIMU;
             }
 
-            if(p_simulation->timeOutAccel)
+            if(p_simulation->getTimeOutAccel())
             {  
                 p_moto->setAccelerator(true);
-                p_simulation->timeOutAccel--;
+                p_simulation->setTimeOutAccel(p_simulation->getTimeOutAccel() - 1);
             }
-            else if(p_simulation->timeOutBreak)
+            else if(p_simulation->getTimeOutBreak())
             {
                 p_moto->setBreaker(true);
-                p_simulation->timeOutBreak--;
+                p_simulation->setTimeOutBreak(p_simulation->getTimeOutBreak() - 1);
             }
             
             break;   
@@ -41,31 +123,31 @@ int simulation_advance(simulation_t* p_simulation, Moto* p_moto)
         
         case SIMU_STATE_FOUR_CICLES:
         {
-            if(p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0)
+            if(p_simulation->getTimeOutBreak() == 0 && p_simulation->getTimeOutAccel() == 0)
             {
-                p_simulation->timeOutAccel = 120;
-                p_simulation->timeOutBreak = 12;
-                p_simulation->cicleCounter++;
+                p_simulation->setTimeOutAccel(120);
+                p_simulation->setTimeOutBreak(12);
+                p_simulation->setCicleCounter(p_simulation->getCicleCounter() + 1);
             }
 
-            if(p_simulation->cicleCounter > 4)
+            if(p_simulation->getCicleCounter() > 4)
             {
-                p_simulation->timeOutAccel = 0;
-                p_simulation->timeOutBreak = 0;
-                p_simulation->cicleCounter = 0;
-                p_simulation->state = SIMU_STATE_ACCEL;
+                p_simulation->setTimeOutAccel(0);
+                p_simulation->setTimeOutBreak(0);
+                p_simulation->setCicleCounter(0);
+                p_simulation->setState(SIMU_STATE_ACCEL); 
                 return HALT_SIMU;
             }
 
-            if(p_simulation->timeOutAccel)
+            if(p_simulation->getTimeOutAccel())
             {  
                 p_moto->setAccelerator(true);
-                p_simulation->timeOutAccel--;
+                p_simulation->setTimeOutAccel(p_simulation->getTimeOutAccel() - 1);
             }
-            else if(p_simulation->timeOutBreak)
+            else if(p_simulation->getTimeOutBreak())
             {
                 p_moto->setBreaker(true);
-                p_simulation->timeOutBreak--;
+                p_simulation->setTimeOutBreak(p_simulation->getTimeOutBreak() - 1);
             }
             
             break;   
@@ -73,54 +155,53 @@ int simulation_advance(simulation_t* p_simulation, Moto* p_moto)
 
         case SIMU_STATE_ACCEL:
         {
-            if(p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0)
+            if(p_simulation->getTimeOutBreak() == 0 && p_simulation->getTimeOutAccel() == 0)
             {
-                p_simulation->timeOutAccel = 100;
-                p_simulation->timeOutBreak = 0;
-                p_simulation->cicleCounter++;
+                p_simulation->setTimeOutAccel(100);
+                p_simulation->setTimeOutBreak(0);
+                p_simulation->setCicleCounter(p_simulation->getCicleCounter() + 1);
             }
 
-            if(p_simulation->cicleCounter > 1)
+            if(p_simulation->getCicleCounter() > 1)
             {
-                p_simulation->timeOutAccel = 0;
-                p_simulation->timeOutBreak = 0;
-                p_simulation->cicleCounter = 0;
-                p_simulation->state = SIMU_STATE_BREAK;
+                p_simulation->setTimeOutAccel(0);
+                p_simulation->setTimeOutBreak(0);
+                p_simulation->setCicleCounter(0);
+                p_simulation->setState(SIMU_STATE_BREAK); 
                 return HALT_SIMU;
             }
 
-            if(p_simulation->timeOutAccel)
+            if(p_simulation->getTimeOutAccel())
             {  
                 p_moto->setAccelerator(true);
-                p_simulation->timeOutAccel--;
+                p_simulation->setTimeOutAccel(p_simulation->getTimeOutAccel() - 1);
             }
-            
             
             break;   
         }
 
         case SIMU_STATE_BREAK:
         {
-            if(p_simulation->timeOutBreak == 0 && p_simulation->timeOutAccel == 0)
+            if(p_simulation->getTimeOutBreak() == 0 && p_simulation->getTimeOutAccel() == 0)
             {
-                p_simulation->timeOutAccel = 0;
-                p_simulation->timeOutBreak = 32;
-                p_simulation->cicleCounter++;
+                p_simulation->setTimeOutAccel(0);
+                p_simulation->setTimeOutBreak(32);
+                p_simulation->setCicleCounter(p_simulation->getCicleCounter() + 1);
             }
 
-            if(p_simulation->cicleCounter > 1)
+            if(p_simulation->getCicleCounter() > 1)
             {
-                p_simulation->timeOutAccel = 0;
-                p_simulation->timeOutBreak = 0;
-                p_simulation->cicleCounter = 0;
-                p_simulation->state = SIMU_STATE_END;
+                p_simulation->setTimeOutAccel(0);
+                p_simulation->setTimeOutBreak(0);
+                p_simulation->setCicleCounter(0);
+                p_simulation->setState(SIMU_STATE_BREAK); 
                 return HALT_SIMU;
             }
 
-            if(p_simulation->timeOutBreak)
-            {
+            if(p_simulation->getTimeOutBreak())
+            {  
                 p_moto->setBreaker(true);
-                p_simulation->timeOutBreak--;
+                p_simulation->setTimeOutBreak(p_simulation->getTimeOutBreak() - 1);
             }
             
             break;   
